@@ -1,0 +1,9 @@
+mkdir src\components
+mkdir src\layouts
+mkdir src\pages
+mkdir src\services
+mkdir src\utils
+mkdir src\hooks
+mkdir src\types
+mkdir src\contexts
+mkdir public 
