@@ -824,20 +824,20 @@ const ApiDocs = () => {
   };
 
   return (
-    <div className="bg-gradient-to-b from-primary/40 to-background pt-[130px] pb-20">
+    <div className="bg-gradient-to-b from-white via-gray-50 to-background pt-[130px] pb-20 min-h-screen">
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
-          <h1 className="text-3xl md:text-4xl font-bold mb-8 text-white">
+          <h1 className="text-3xl md:text-5xl font-bold mb-4 text-primary-dark">
             API Documentation
           </h1>
-          <p className="text-lg text-white/90 mb-8">
+          <p className="text-lg text-text mb-12 max-w-3xl leading-relaxed">
             GhostPay-Lite provides a RESTful API for issuing single-use virtual
             cards and processing charges. Each endpoint is documented below.
           </p>
 
-          <div className="mb-6 bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
+          <div className="mb-6 bg-blue-50 border-l-4 border-blue-500 p-5 rounded-lg shadow-sm">
             <h3 className="font-semibold text-blue-800">Security Notes</h3>
-            <ul className="list-disc ml-5 mt-2 text-blue-800">
+            <ul className="list-disc ml-5 mt-2 text-blue-700">
               <li>All passwords are hashed using bcrypt before storage</li>
               <li>Failed login attempts are tracked</li>
               <li>Tokens are signed using JWT_SECRET</li>
@@ -846,9 +846,9 @@ const ApiDocs = () => {
             </ul>
           </div>
 
-          <div className="mb-6 bg-yellow-50 border-l-4 border-yellow-500 p-4 rounded">
+          <div className="mb-8 bg-yellow-50 border-l-4 border-yellow-500 p-5 rounded-lg shadow-sm">
             <h3 className="font-semibold text-yellow-800">Token Information</h3>
-            <ul className="list-disc ml-5 mt-2 text-yellow-800">
+            <ul className="list-disc ml-5 mt-2 text-yellow-700">
               <li>Access Token: Valid for 7 days</li>
               <li>Refresh Token: Valid for 30 days</li>
             </ul>
@@ -857,7 +857,7 @@ const ApiDocs = () => {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
             <div className="md:col-span-1">
               <div className="sticky top-20">
-                <div className="bg-white p-4 rounded-lg shadow-sm">
+                <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
                   <h3 className="font-medium mb-3 text-text-muted uppercase text-sm">
                     Endpoints
                   </h3>
@@ -869,7 +869,7 @@ const ApiDocs = () => {
                         className={`w-full text-left px-3 py-2 rounded-md transition-colors ${
                           selectedEndpoint === endpoint.id
                             ? "bg-primary text-white"
-                            : "hover:bg-gray-100"
+                            : "text-text hover:bg-gray-100"
                         }`}
                       >
                         <div className="font-medium text-sm">
@@ -892,20 +892,20 @@ const ApiDocs = () => {
             </div>
 
             <div className="md:col-span-3">
-              <div className="bg-white p-6 rounded-lg shadow-sm min-h-[400px]">
+              <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 min-h-[400px]">
                 {renderEndpointContent()}
               </div>
             </div>
           </div>
 
-          <div className="mt-12 bg-primary/5 p-6 rounded-lg">
-            <h3 className="text-xl font-semibold mb-4">API Explorer</h3>
-            <p className="mb-4">
+          <div className="mt-12 bg-primary/5 p-6 rounded-lg shadow-sm border border-gray-100">
+            <h3 className="text-xl font-semibold mb-4 text-primary-dark">API Explorer</h3>
+            <p className="mb-6 text-text">
               Try out the API endpoints directly from our interactive API
               Explorer in the Dashboard.
             </p>
             <div className="flex">
-              <a href="/dashboard" className="btn btn-primary">
+              <a href="/dashboard" className="bg-secondary hover:bg-secondary-dark px-4 py-2 rounded-md font-medium transition-colors text-white">
                 Open API Explorer
               </a>
             </div>

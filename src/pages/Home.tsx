@@ -73,13 +73,14 @@ const Home = () => {
               >
                 {!isFlipped ? (
                   <motion.div
-                    className="relative w-full aspect-[1.6/1] bg-gradient-to-br from-primary-light to-primary rounded-xl shadow-lg p-6 flex flex-col justify-between preserve-3d"
+                    className="relative w-full aspect-[1.6/1] bg-gradient-to-br from-black/70 via-black/60 to-primary-dark/90 rounded-xl shadow-xl p-6 flex flex-col justify-between preserve-3d backdrop-blur-sm border border-white/10"
                     initial="initial"
                     animate="animate"
                     exit="exit"
                     variants={cardFront}
                   >
-                    <div>
+                    <div className="absolute inset-0 bg-black/30 rounded-xl z-0"></div>
+                    <div className="relative z-10">
                       <div className="flex justify-between items-start">
                         <div className="text-xl font-bold text-white">
                           GhostPay
@@ -91,9 +92,9 @@ const Home = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="mt-8 h-8 w-14 bg-gray-300/20 rounded"></div>
+                      <div className="mt-8 h-8 w-14 bg-white/10 rounded"></div>
                     </div>
-                    <div>
+                    <div className="relative z-10">
                       <div className="text-lg sm:text-xl text-white tracking-widest font-mono mb-2 flex items-center">
                         <span className="mr-2">
                           <svg
@@ -136,24 +137,25 @@ const Home = () => {
                   </motion.div>
                 ) : (
                   <motion.div
-                    className="relative w-full aspect-[1.6/1] bg-gradient-to-br from-gray-700 to-gray-900 rounded-xl shadow-lg p-6 flex flex-col justify-between preserve-3d"
+                    className="relative w-full aspect-[1.6/1] bg-gradient-to-br from-black/80 via-black/70 to-primary-dark/80 rounded-xl shadow-xl p-6 flex flex-col justify-between preserve-3d backdrop-blur-sm border border-white/10"
                     initial="initial"
                     animate="animate"
                     exit="exit"
                     variants={cardBack}
                   >
-                    <div className="absolute top-6 left-0 w-full h-10 bg-gray-800"></div>
-                    <div className="absolute top-20 right-6 flex flex-col items-end">
+                    <div className="absolute inset-0 bg-black/40 rounded-xl z-0"></div>
+                    <div className="absolute top-6 left-0 w-full h-10 bg-black/70 z-10"></div>
+                    <div className="absolute top-20 right-6 flex flex-col items-end z-10">
                       <div className="bg-white/80 h-8 w-full max-w-[180px] flex items-center justify-end px-2 font-mono">
                         <span className="text-gray-900">{demoCVV}</span>
                       </div>
-                      <div className="mt-2 h-12 w-16 bg-gray-600/50"></div>
+                      <div className="mt-2 h-12 w-16 bg-black/30"></div>
                     </div>
-                    <div className="absolute bottom-6 left-6 text-xs text-white/50 max-w-[240px]">
+                    <div className="absolute bottom-6 left-6 text-xs text-white/50 max-w-[240px] z-10">
                       This card is for demo purposes only. Single-use virtual
                       cards are generated via API.
                     </div>
-                    <div className="absolute bottom-4 right-6 text-white/40 text-xs">
+                    <div className="absolute bottom-4 right-6 text-white/40 text-xs z-10">
                       Click to flip
                     </div>
                   </motion.div>

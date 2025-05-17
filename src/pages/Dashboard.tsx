@@ -181,55 +181,55 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="bg-gradient-to-b from-primary/40 to-background pt-[130px] pb-20">
+    <div className="bg-gradient-to-b from-white via-gray-50 to-background pt-[130px] pb-20 min-h-screen">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-3xl md:text-4xl font-bold mb-8 text-white">
+          <h1 className="text-3xl md:text-5xl font-bold mb-4 text-primary-dark">
             API Explorer
           </h1>
-          <p className="text-lg text-white/90 mb-8">
+          <p className="text-lg text-text mb-12 max-w-3xl leading-relaxed">
             Test the GhostPay-Lite API directly from your browser. Select an
             endpoint, customize the request payload, and see the response.
           </p>
 
-          <div className="bg-white rounded-lg shadow-sm p-6 mb-8">
+          <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6 mb-8">
             <div className="flex flex-wrap gap-3 mb-6">
               <button
                 onClick={() => handleEndpointChange("issue-card")}
-                className={`px-3 py-2 rounded-md ${
+                className={`px-3 py-2 rounded-md transition-colors ${
                   selectedApi === "issue-card"
                     ? "bg-primary text-white"
-                    : "bg-gray-100 hover:bg-gray-200"
+                    : "bg-gray-100 hover:bg-gray-200 text-text"
                 }`}
               >
                 Issue Card
               </button>
               <button
                 onClick={() => handleEndpointChange("charge-card")}
-                className={`px-3 py-2 rounded-md ${
+                className={`px-3 py-2 rounded-md transition-colors ${
                   selectedApi === "charge-card"
                     ? "bg-primary text-white"
-                    : "bg-gray-100 hover:bg-gray-200"
+                    : "bg-gray-100 hover:bg-gray-200 text-text"
                 }`}
               >
                 Charge Card
               </button>
               <button
                 onClick={() => handleEndpointChange("auth-register")}
-                className={`px-3 py-2 rounded-md ${
+                className={`px-3 py-2 rounded-md transition-colors ${
                   selectedApi === "auth-register"
                     ? "bg-primary text-white"
-                    : "bg-gray-100 hover:bg-gray-200"
+                    : "bg-gray-100 hover:bg-gray-200 text-text"
                 }`}
               >
                 Register User
               </button>
               <button
                 onClick={() => handleEndpointChange("auth-login")}
-                className={`px-3 py-2 rounded-md ${
+                className={`px-3 py-2 rounded-md transition-colors ${
                   selectedApi === "auth-login"
                     ? "bg-primary text-white"
-                    : "bg-gray-100 hover:bg-gray-200"
+                    : "bg-gray-100 hover:bg-gray-200 text-text"
                 }`}
               >
                 Login
@@ -239,7 +239,7 @@ const Dashboard = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <h3 className="font-semibold">Request</h3>
+                  <h3 className="font-semibold text-text">Request</h3>
                   <div className="flex space-x-2 text-sm">
                     <span
                       className={`px-2 py-1 rounded ${
@@ -258,13 +258,13 @@ const Dashboard = () => {
                 <textarea
                   value={requestPayload}
                   onChange={(e) => setRequestPayload(e.target.value)}
-                  className="w-full h-80 p-4 border border-gray-300 rounded-md font-mono text-sm"
+                  className="w-full h-80 p-4 border border-gray-200 rounded-md font-mono text-sm bg-white text-text shadow-inner focus:ring-1 focus:ring-primary focus:outline-none"
                   placeholder="Enter JSON payload..."
                 />
                 <button
                   onClick={handleSendRequest}
                   disabled={isLoading}
-                  className="mt-3 btn btn-primary flex items-center"
+                  className="mt-3 bg-primary hover:bg-primary-dark px-4 py-2 rounded-md font-medium transition-colors text-white flex items-center"
                 >
                   {isLoading ? (
                     <>
@@ -297,8 +297,8 @@ const Dashboard = () => {
               </div>
 
               <div>
-                <h3 className="font-semibold mb-3">Response</h3>
-                <div className="h-80 overflow-auto bg-gray-900 rounded-md">
+                <h3 className="font-semibold mb-3 text-text">Response</h3>
+                <div className="h-80 overflow-auto bg-gray-900 rounded-md border border-gray-200">
                   {error ? (
                     <div className="p-4 text-red-400 font-mono text-sm">
                       Error: {error}
@@ -325,15 +325,20 @@ const Dashboard = () => {
             </div>
           </div>
 
-          <div className="bg-primary/5 p-6 rounded-lg">
-            <h3 className="text-xl font-semibold mb-4">Need More Details?</h3>
-            <p className="mb-4">
+          <div className="bg-primary/5 p-6 rounded-lg shadow-sm border border-gray-100">
+            <h3 className="text-xl font-semibold mb-4 text-primary-dark">
+              Need More Details?
+            </h3>
+            <p className="mb-6 text-text">
               Check out our comprehensive API documentation to learn about all
               available endpoints, request parameters, response formats, and
               error handling.
             </p>
             <div className="flex">
-              <a href="/api-docs" className="btn btn-primary">
+              <a
+                href="/api-docs"
+                className="bg-primary hover:bg-primary-dark px-4 py-2 rounded-md font-medium transition-colors text-white"
+              >
                 View API Documentation
               </a>
             </div>
