@@ -2,10 +2,13 @@ import { useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 
+// Define a type for response data
+type ApiResponse = Record<string, any> | null;
+
 const Dashboard = () => {
   const [selectedApi, setSelectedApi] = useState("issue-card");
   const [requestPayload, setRequestPayload] = useState("");
-  const [responseData, setResponseData] = useState(null);
+  const [responseData, setResponseData] = useState<ApiResponse>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -181,7 +184,9 @@ const Dashboard = () => {
     <div className="bg-gradient-to-b from-primary/40 to-background pt-[130px] pb-20">
       <div className="container mx-auto px-4">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-3xl md:text-4xl font-bold mb-8 text-white">API Explorer</h1>
+          <h1 className="text-3xl md:text-4xl font-bold mb-8 text-white">
+            API Explorer
+          </h1>
           <p className="text-lg text-white/90 mb-8">
             Test the GhostPay-Lite API directly from your browser. Select an
             endpoint, customize the request payload, and see the response.
