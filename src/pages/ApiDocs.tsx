@@ -899,13 +899,18 @@ const ApiDocs = () => {
           </div>
 
           <div className="mt-12 bg-primary/5 p-6 rounded-lg shadow-sm border border-gray-100">
-            <h3 className="text-xl font-semibold mb-4 text-primary-dark">API Explorer</h3>
+            <h3 className="text-xl font-semibold mb-4 text-primary-dark">
+              API Explorer
+            </h3>
             <p className="mb-6 text-text">
               Try out the API endpoints directly from our interactive API
               Explorer in the Dashboard.
             </p>
             <div className="flex">
-              <a href="/dashboard" className="bg-secondary hover:bg-secondary-dark px-4 py-2 rounded-md font-medium transition-colors text-white">
+              <a
+                href="/dashboard"
+                className="bg-secondary hover:bg-secondary-dark px-4 py-2 rounded-md font-medium transition-colors text-white"
+              >
                 Open API Explorer
               </a>
             </div>
