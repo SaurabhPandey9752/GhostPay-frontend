@@ -19,7 +19,27 @@ const ApiDocs = () => {
     },
     { id: "issue-card", name: "POST /cards", desc: "Issue a new card" },
     { id: "get-card", name: "GET /cards/:id", desc: "Get card status" },
+    {
+      id: "card-analytics",
+      name: "GET /cards/analytics/overview",
+      desc: "Get card analytics",
+    },
     { id: "charge-card", name: "POST /charges", desc: "Process card charge" },
+    {
+      id: "transaction-details",
+      name: "GET /transactions/:id",
+      desc: "Get transaction details",
+    },
+    {
+      id: "merchant-analytics",
+      name: "GET /transactions/analytics/merchant",
+      desc: "Get merchant analytics",
+    },
+    {
+      id: "admin-analytics",
+      name: "GET /transactions/analytics/admin",
+      desc: "Get admin analytics",
+    },
   ];
 
   const renderEndpointContent = () => {
@@ -806,6 +826,604 @@ const ApiDocs = () => {
                   >
                     {`{
   "message": "Refresh token expired"
+}`}
+                  </SyntaxHighlighter>
+                </div>
+              </div>
+            </div>
+          </>
+        );
+
+      case "card-analytics":
+        return (
+          <>
+            <div className="mb-6">
+              <h3 className="text-xl font-semibold mb-2">Get Card Analytics</h3>
+              <p className="text-text-muted mb-2">
+                Get comprehensive analytics for user's cards.
+              </p>
+              <div className="bg-primary text-white px-3 py-1 rounded-md inline-block font-medium">
+                GET /cards/analytics/overview
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <h4 className="font-semibold mb-2">Required Role</h4>
+              <div className="bg-gray-100 p-4 rounded-md overflow-auto">
+                <span className="text-sm font-medium">USER</span>
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <h4 className="font-semibold mb-2">Request Headers</h4>
+              <div className="bg-gray-100 p-4 rounded-md overflow-auto">
+                <pre className="text-sm">
+                  Authorization: Bearer {"{your_jwt_token}"}
+                </pre>
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <h4 className="font-semibold mb-2">Response (200 OK)</h4>
+              <SyntaxHighlighter
+                language="json"
+                style={vscDarkPlus}
+                customStyle={{ borderRadius: "0.375rem" }}
+              >
+                {`{
+  "overview": {
+    "totalCards": 3,
+    "activeCards": 2,
+    "usedCards": 1,
+    "totalSpent": 5000,
+    "totalOutstanding": 2000
+  },
+  "spending": {
+    "monthly": [
+      {
+        "month": "2024-03",
+        "amount": 3000
+      },
+      {
+        "month": "2024-02",
+        "amount": 2000
+      }
+    ],
+    "byMerchant": [
+      {
+        "merchantId": "65f2e8b7c261e6001234efgh",
+        "merchantName": "Store XYZ",
+        "count": 3,
+        "total": 3000
+      },
+      {
+        "merchantId": "65f2e8b7c261e6001234ijkl",
+        "merchantName": "Store ABC",
+        "count": 2,
+        "total": 2000
+      }
+    ]
+  },
+  "cards": [
+    {
+      "cardId": "65f2e8b7c261e6001234abcd",
+      "cardNumber": "••••••••9012",
+      "cardHolderName": "John Doe",
+      "currentBalance": 2000,
+      "maxLimit": 5000,
+      "isActive": true,
+      "isUsed": true,
+      "totalTransactions": 3,
+      "totalSpent": 3000,
+      "lastTransactionDate": "2024-03-15T10:30:00.000Z",
+      "topMerchants": [
+        {
+          "merchantId": "65f2e8b7c261e6001234efgh",
+          "merchantName": "Store XYZ",
+          "count": 2,
+          "total": 2000
+        }
+      ]
+    }
+  ]
+}`}
+              </SyntaxHighlighter>
+            </div>
+          </>
+        );
+
+      case "transaction-details":
+        return (
+          <>
+            <div className="mb-6">
+              <h3 className="text-xl font-semibold mb-2">
+                Get Transaction Details
+              </h3>
+              <p className="text-text-muted mb-2">
+                Get detailed information about a specific transaction.
+              </p>
+              <div className="bg-primary text-white px-3 py-1 rounded-md inline-block font-medium">
+                GET /transactions/:transactionId
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <h4 className="font-semibold mb-2">Required Role</h4>
+              <div className="bg-gray-100 p-4 rounded-md overflow-auto">
+                <span className="text-sm">
+                  <span className="font-medium">ADMIN</span>,{" "}
+                  <span className="font-medium">MERCHANT</span>, or{" "}
+                  <span className="font-medium">USER</span>
+                  <ul className="list-disc ml-5 mt-2">
+                    <li>
+                      Admins get full transaction details including card
+                      information
+                    </li>
+                    <li>
+                      Merchants get transaction details with customer info but
+                      no card details
+                    </li>
+                    <li>
+                      Customers get transaction details with merchant info but
+                      no card details
+                    </li>
+                  </ul>
+                </span>
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <h4 className="font-semibold mb-2">Request Headers</h4>
+              <div className="bg-gray-100 p-4 rounded-md overflow-auto">
+                <pre className="text-sm">
+                  Authorization: Bearer {"{your_jwt_token}"}
+                </pre>
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <h4 className="font-semibold mb-2">Response (200 OK)</h4>
+              <SyntaxHighlighter
+                language="json"
+                style={vscDarkPlus}
+                customStyle={{ borderRadius: "0.375rem" }}
+              >
+                {`{
+  "transaction": {
+    "id": "TXN1234567890",
+    "amount": 1000,
+    "status": "completed",
+    "timestamp": "2024-03-15T10:30:00.000Z",
+    "description": "Purchase at Store XYZ",
+    "cardId": {
+      "cardNumber": "••••••••9012",
+      "cardHolderName": "John Doe"
+    },
+    "merchantId": {
+      "name": "Store XYZ",
+      "email": "store@example.com"
+    },
+    "customerId": {
+      "name": "John Doe",
+      "email": "john@example.com"
+    }
+  }
+}`}
+              </SyntaxHighlighter>
+            </div>
+
+            <div className="mb-6">
+              <h4 className="font-semibold mb-2">Error Responses</h4>
+              <div className="space-y-4">
+                <div>
+                  <span className="bg-red-100 text-red-800 px-2 py-1 rounded text-sm font-medium">
+                    401 Unauthorized
+                  </span>
+                  <SyntaxHighlighter
+                    language="json"
+                    style={vscDarkPlus}
+                    customStyle={{
+                      borderRadius: "0.375rem",
+                      marginTop: "0.5rem",
+                    }}
+                  >
+                    {`{
+  "message": "User not authenticated"
+}`}
+                  </SyntaxHighlighter>
+                </div>
+
+                <div>
+                  <span className="bg-red-100 text-red-800 px-2 py-1 rounded text-sm font-medium">
+                    403 Forbidden
+                  </span>
+                  <SyntaxHighlighter
+                    language="json"
+                    style={vscDarkPlus}
+                    customStyle={{
+                      borderRadius: "0.375rem",
+                      marginTop: "0.5rem",
+                    }}
+                  >
+                    {`{
+  "message": "Access denied to this transaction"
+}`}
+                  </SyntaxHighlighter>
+                </div>
+
+                <div>
+                  <span className="bg-red-100 text-red-800 px-2 py-1 rounded text-sm font-medium">
+                    404 Not Found
+                  </span>
+                  <SyntaxHighlighter
+                    language="json"
+                    style={vscDarkPlus}
+                    customStyle={{
+                      borderRadius: "0.375rem",
+                      marginTop: "0.5rem",
+                    }}
+                  >
+                    {`{
+  "message": "Transaction not found"
+}`}
+                  </SyntaxHighlighter>
+                </div>
+              </div>
+            </div>
+          </>
+        );
+
+      case "merchant-analytics":
+        return (
+          <>
+            <div className="mb-6">
+              <h3 className="text-xl font-semibold mb-2">
+                Get Merchant Analytics
+              </h3>
+              <p className="text-text-muted mb-2">
+                Get comprehensive analytics for a merchant.
+              </p>
+              <div className="bg-primary text-white px-3 py-1 rounded-md inline-block font-medium">
+                GET /transactions/analytics/merchant
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <h4 className="font-semibold mb-2">Required Role</h4>
+              <div className="bg-gray-100 p-4 rounded-md overflow-auto">
+                <span className="text-sm">
+                  <span className="font-medium">MERCHANT</span> or{" "}
+                  <span className="font-medium">ADMIN</span>
+                </span>
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <h4 className="font-semibold mb-2">Query Parameters</h4>
+              <div className="overflow-auto">
+                <table className="w-full border-collapse text-sm">
+                  <thead>
+                    <tr className="bg-gray-100">
+                      <th className="border border-gray-300 px-4 py-2 text-left">
+                        Parameter
+                      </th>
+                      <th className="border border-gray-300 px-4 py-2 text-left">
+                        Type
+                      </th>
+                      <th className="border border-gray-300 px-4 py-2 text-left">
+                        Description
+                      </th>
+                      <th className="border border-gray-300 px-4 py-2 text-left">
+                        Required
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td className="border border-gray-300 px-4 py-2">
+                        merchantId
+                      </td>
+                      <td className="border border-gray-300 px-4 py-2">
+                        string
+                      </td>
+                      <td className="border border-gray-300 px-4 py-2">
+                        Merchant ID (admin only)
+                      </td>
+                      <td className="border border-gray-300 px-4 py-2">No</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <h4 className="font-semibold mb-2">Request Headers</h4>
+              <div className="bg-gray-100 p-4 rounded-md overflow-auto">
+                <pre className="text-sm">
+                  Authorization: Bearer {"{your_jwt_token}"}
+                </pre>
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <h4 className="font-semibold mb-2">Response (200 OK)</h4>
+              <SyntaxHighlighter
+                language="json"
+                style={vscDarkPlus}
+                customStyle={{ borderRadius: "0.375rem" }}
+              >
+                {`{
+  "merchant": {
+    "id": "65f2e8b7c261e6001234efgh",
+    "name": "Store XYZ",
+    "email": "store@example.com"
+  },
+  "overview": {
+    "totalTransactions": 15,
+    "totalAmount": 12000,
+    "averageAmount": 800,
+    "successRate": 95,
+    "totalCustomers": 8
+  },
+  "timeAnalysis": {
+    "daily": [
+      {
+        "date": "2024-03-15",
+        "amount": 3000
+      }
+    ],
+    "monthly": [
+      {
+        "month": "2024-03",
+        "amount": 7000
+      },
+      {
+        "month": "2024-02",
+        "amount": 5000
+      }
+    ]
+  },
+  "statusBreakdown": {
+    "completed": 14,
+    "failed": 1,
+    "pending": 0
+  },
+  "recentTransactions": [
+    {
+      "id": "TXN1234567890",
+      "amount": 1000,
+      "timestamp": "2024-03-15T10:30:00.000Z",
+      "status": "completed",
+      "description": "Purchase at Store XYZ",
+      "customerName": "John Doe"
+    }
+  ]
+}`}
+              </SyntaxHighlighter>
+            </div>
+
+            <div className="mb-6">
+              <h4 className="font-semibold mb-2">Error Responses</h4>
+              <div className="space-y-4">
+                <div>
+                  <span className="bg-red-100 text-red-800 px-2 py-1 rounded text-sm font-medium">
+                    400 Bad Request
+                  </span>
+                  <SyntaxHighlighter
+                    language="json"
+                    style={vscDarkPlus}
+                    customStyle={{
+                      borderRadius: "0.375rem",
+                      marginTop: "0.5rem",
+                    }}
+                  >
+                    {`{
+  "message": "Valid merchant ID required for admin"
+}`}
+                  </SyntaxHighlighter>
+                </div>
+
+                <div>
+                  <span className="bg-red-100 text-red-800 px-2 py-1 rounded text-sm font-medium">
+                    401 Unauthorized
+                  </span>
+                  <SyntaxHighlighter
+                    language="json"
+                    style={vscDarkPlus}
+                    customStyle={{
+                      borderRadius: "0.375rem",
+                      marginTop: "0.5rem",
+                    }}
+                  >
+                    {`{
+  "message": "User not authenticated"
+}`}
+                  </SyntaxHighlighter>
+                </div>
+
+                <div>
+                  <span className="bg-red-100 text-red-800 px-2 py-1 rounded text-sm font-medium">
+                    404 Not Found
+                  </span>
+                  <SyntaxHighlighter
+                    language="json"
+                    style={vscDarkPlus}
+                    customStyle={{
+                      borderRadius: "0.375rem",
+                      marginTop: "0.5rem",
+                    }}
+                  >
+                    {`{
+  "message": "Merchant not found"
+}`}
+                  </SyntaxHighlighter>
+                </div>
+              </div>
+            </div>
+          </>
+        );
+
+      case "admin-analytics":
+        return (
+          <>
+            <div className="mb-6">
+              <h3 className="text-xl font-semibold mb-2">
+                Get Admin Analytics
+              </h3>
+              <p className="text-text-muted mb-2">
+                Get comprehensive analytics for the entire system.
+              </p>
+              <div className="bg-primary text-white px-3 py-1 rounded-md inline-block font-medium">
+                GET /transactions/analytics/admin
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <h4 className="font-semibold mb-2">Required Role</h4>
+              <div className="bg-gray-100 p-4 rounded-md overflow-auto">
+                <span className="text-sm font-medium">ADMIN</span>
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <h4 className="font-semibold mb-2">Request Headers</h4>
+              <div className="bg-gray-100 p-4 rounded-md overflow-auto">
+                <pre className="text-sm">
+                  Authorization: Bearer {"{your_jwt_token}"}
+                </pre>
+              </div>
+            </div>
+
+            <div className="mb-6">
+              <h4 className="font-semibold mb-2">Response (200 OK)</h4>
+              <SyntaxHighlighter
+                language="json"
+                style={vscDarkPlus}
+                customStyle={{ borderRadius: "0.375rem" }}
+              >
+                {`{
+  "overview": {
+    "totalUsers": 50,
+    "totalMerchants": 10,
+    "totalTransactions": 500,
+    "totalAmount": 250000,
+    "averageAmount": 500,
+    "successRate": 98,
+    "totalOutstanding": 50000
+  },
+  "userAnalysis": {
+    "totalActiveUsers": 45,
+    "totalInactiveUsers": 5,
+    "usersWithCards": 40,
+    "usersWithTransactions": 35,
+    "userOutstandingAmount": 50000,
+    "averageOutstandingPerUser": 1250
+  },
+  "merchantAnalysis": {
+    "totalActiveMerchants": 8,
+    "totalInactiveMerchants": 2,
+    "merchantsWithTransactions": 7,
+    "averageTransactionsPerMerchant": 71,
+    "averageAmountPerMerchant": 35714,
+    "topMerchants": [
+      {
+        "merchantId": "65f2e8b7c261e6001234efgh",
+        "merchantName": "Store XYZ",
+        "totalTransactions": 150,
+        "totalAmount": 80000,
+        "successRate": 99,
+        "uniqueCustomers": 30
+      }
+    ]
+  },
+  "transactionAnalysis": {
+    "statusBreakdown": {
+      "completed": 490,
+      "failed": 8,
+      "pending": 2
+    },
+    "timeAnalysis": {
+      "monthly": [
+        {
+          "month": "2024-03",
+          "amount": 90000
+        },
+        {
+          "month": "2024-02",
+          "amount": 80000
+        }
+      ]
+    },
+    "recentTransactions": [
+      {
+        "id": "TXN1234567890",
+        "amount": 1000,
+        "timestamp": "2024-03-15T10:30:00.000Z",
+        "status": "completed",
+        "description": "Purchase at Store XYZ",
+        "merchantName": "Store XYZ",
+        "customerName": "John Doe"
+      }
+    ]
+  }
+}`}
+              </SyntaxHighlighter>
+            </div>
+
+            <div className="mb-6">
+              <h4 className="font-semibold mb-2">Error Responses</h4>
+              <div className="space-y-4">
+                <div>
+                  <span className="bg-red-100 text-red-800 px-2 py-1 rounded text-sm font-medium">
+                    401 Unauthorized
+                  </span>
+                  <SyntaxHighlighter
+                    language="json"
+                    style={vscDarkPlus}
+                    customStyle={{
+                      borderRadius: "0.375rem",
+                      marginTop: "0.5rem",
+                    }}
+                  >
+                    {`{
+  "message": "User not authenticated"
+}`}
+                  </SyntaxHighlighter>
+                </div>
+
+                <div>
+                  <span className="bg-red-100 text-red-800 px-2 py-1 rounded text-sm font-medium">
+                    403 Forbidden
+                  </span>
+                  <SyntaxHighlighter
+                    language="json"
+                    style={vscDarkPlus}
+                    customStyle={{
+                      borderRadius: "0.375rem",
+                      marginTop: "0.5rem",
+                    }}
+                  >
+                    {`{
+  "message": "Admin access required"
+}`}
+                  </SyntaxHighlighter>
+                </div>
+
+                <div>
+                  <span className="bg-red-100 text-red-800 px-2 py-1 rounded text-sm font-medium">
+                    429 Too Many Requests
+                  </span>
+                  <SyntaxHighlighter
+                    language="json"
+                    style={vscDarkPlus}
+                    customStyle={{
+                      borderRadius: "0.375rem",
+                      marginTop: "0.5rem",
+                    }}
+                  >
+                    {`{
+  "message": "Too many analytics requests, please try again after 5 minutes",
+  "retryAfter": 300
 }`}
                   </SyntaxHighlighter>
                 </div>
